@@ -20,7 +20,6 @@ public class ItemCollector : MonoBehaviour
         Destroy(collision.gameObject);
         melons++;
         melonText.text = "Melons: " + melons;
-        // Debug.Log("Melons : " + melons);
 
       }
    }

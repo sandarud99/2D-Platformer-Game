@@ -9,11 +9,14 @@ public class PlayerLife : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private AudioSource deathSoundEffect;
+    [SerializeField] private float damage; // Add a field for damage
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        
         
     }
 
@@ -21,9 +24,25 @@ public class PlayerLife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
-            Die();
+            ReduceHealth(); // Call a method to reduce health
+            if (GetComponent<Health>().currentHealth <= 0)  
+            {
+                Die();
+            }
+            
         }
     }
+
+    public void ReduceHealth()
+    {
+        Health playerHealth = GetComponent<Health>(); // Assuming Health script is on the same GameObject
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+        }
+    }
+
+    
     private void Die()
     {
         deathSoundEffect.Play();
